@@ -5,10 +5,6 @@ import android.app.NotificationManager;
 
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.CleverTapInstanceConfig;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MyApplication extends Application {
     private static CleverTapAPI cleverTapDefaultInstance;
@@ -19,39 +15,35 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
-/*
-
-        JSONObject configSetting = new JSONObject();
-
-        try {
-            configSetting.put("accountId", "TEST-549-W7Z-775Z");
-            configSetting.put("accountToken", "TEST-1a0-c45");
-            configSetting.put("enableABTesting", true);
-            configSetting.put("enableUIEditor", true);
-            configSetting.put("debugLevel", 2);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        CleverTapInstanceConfig config = CleverTapInstanceConfig.createInstance(getApplicationContext(),
-                "TEST-549-W7Z-775Z", "TEST-1a0-c45");
-        config.setAnalyticsOnly(false);
-
-        config.setDebugLevel(CleverTapAPI.LogLevel.DEBUG);
-//        config.setEnableABTesting
-
-        cleverTapDefaultInstance = CleverTapAPI.instanceWithConfig(getApplicationContext(), config);
-*/
-
-
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
-
-
         CleverTapAPI.setUIEditorConnectionEnabled(true);//Set to false in production
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG); //Set to OFF in production
         ActivityLifecycleCallback.register(this);
 
+//        JSONObject configSetting = new JSONObject();
+//        try {
+//            configSetting.put("accountId", "TEST-549-W7Z-775Z");
+//            configSetting.put("accountToken", "TEST-1a0-c45");
+//            configSetting.put("enableABTesting", true);
+//            configSetting.put("enableUIEditor", true);
+//            configSetting.put("debugLevel", 2);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        CleverTapInstanceConfig config = CleverTapInstanceConfig.createInstance(getApplicationContext(),
+//                "TEST-549-W7Z-775Z", "TEST-1a0-c45");
+//        config.setAnalyticsOnly(false);
+//
+//        config.setDebugLevel(CleverTapAPI.LogLevel.DEBUG);
+//        config.setEnableABTesting
         super.onCreate();
+
+
+
+//        cleverTapDefaultInstance = CleverTapAPI.instanceWithConfig(getApplicationContext(), config);
+
+        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+
         CleverTapAPI.createNotificationChannelGroup(getApplicationContext(), "grp_1", "Group 1");
 
         CleverTapAPI.createNotificationChannel(getApplicationContext(), "chnl_1", "Channel 1",
