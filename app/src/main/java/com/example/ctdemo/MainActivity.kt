@@ -10,12 +10,15 @@ import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CTInboxStyleConfig
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
+import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent
 import com.example.ctdemo.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
     CTExperimentsListener {
     private lateinit var binding: ActivityMainBinding
+    private val displayUnits: ArrayList<CleverTapDisplayUnitContent> = ArrayList()
+    private lateinit var adapter: CarouselAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +39,6 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
         MyApplication.getCleverTapDefaultInstance().initializeInbox()
 
         MyApplication.getCleverTapDefaultInstance().setDisplayUnitListener(this)
-
     }
 
 
@@ -76,16 +78,20 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
         for (i in 0 until units!!.size) {
             val unit = units[i]
 
-            Log.d("Unit ID", unit.unitID);
+            Log.d("Unit ID", unit.unitID)
             prepareDisplayView(unit)
         }
     }
 
     private fun prepareDisplayView(unit: CleverTapDisplayUnit) {
-        binding.tvNativeDisplay.text = unit.customExtras["title"]
+        displayUnits.clear()
+        displayUnits.addAll(unit.contents)
+
+        adapter = CarouselAdapter(displayUnits, this)
+        binding.viewPager.adapter = adapter
+//        binding.tvNativeDisplay.text = unit.customExtras["title"]
     }
 
     override fun CTExperimentsUpdated() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
