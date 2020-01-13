@@ -39,6 +39,11 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
         MyApplication.getCleverTapDefaultInstance().initializeInbox()
 
         MyApplication.getCleverTapDefaultInstance().setDisplayUnitListener(this)
+        MyApplication.getCleverTapDefaultInstance().ctExperimentsListener = this
+
+        MyApplication.getCleverTapDefaultInstance().registerIntegerVariable("testVariable1")
+        MyApplication.getCleverTapDefaultInstance().registerBooleanVariable("testVariable2")
+
     }
 
 
@@ -93,5 +98,15 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
     }
 
     override fun CTExperimentsUpdated() {
+
+        val boolVar =
+            MyApplication.getCleverTapDefaultInstance().getBooleanVariable("testVariable2", null)
+
+        val intVar =
+            MyApplication.getCleverTapDefaultInstance().getIntegerVariable("testVariable1", -1)
+
+        Log.d("Boolean Variable", "Value : $boolVar")
+        Log.d("Integer Variable", "Value : $intVar")
+
     }
 }
