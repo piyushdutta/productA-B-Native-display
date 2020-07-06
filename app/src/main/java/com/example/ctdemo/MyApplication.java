@@ -2,9 +2,19 @@ package com.example.ctdemo;
 
 import android.app.Application;
 import android.app.NotificationManager;
-
+import android.webkit.WebView;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
+import androidx.appcompat.app.AppCompatActivity;
+import com.clevertap.android.sdk.CTWebInterface;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.webkit.WebView;
+import android.support.annotation;
+
 
 public class MyApplication extends Application {
     private static CleverTapAPI cleverTapDefaultInstance;
@@ -38,8 +48,6 @@ public class MyApplication extends Application {
 //        config.setEnableABTesting
         super.onCreate();
 
-
-
 //        cleverTapDefaultInstance = CleverTapAPI.instanceWithConfig(getApplicationContext(), config);
 
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
@@ -48,5 +56,12 @@ public class MyApplication extends Application {
 
         CleverTapAPI.createNotificationChannel(getApplicationContext(), "chnl_1", "Channel 1",
                 "Demo notifications from CleverTap dashboard", NotificationManager.IMPORTANCE_MAX, "grp_1", true);
+
+
+        if (window.cleverTapDefaultInstance) {
+            // Call Android interface
+            CleverTapAPI.getDefaultInstance(getApplicationContext()).pushEvent("Product viewed");
+        }
     }
 }
+

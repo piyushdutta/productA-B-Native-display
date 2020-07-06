@@ -12,6 +12,7 @@ import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent
 import com.example.ctdemo.databinding.ActivityMainBinding
+import android.webkit.WebView;
 
 
 class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
         binding.buttonNativeDisplay.setOnClickListener {
             MyApplication.getCleverTapDefaultInstance().pushEvent("Native Display")
         }
+
 
         MyApplication.getCleverTapDefaultInstance().ctNotificationInboxListener = this
         //Initialize the inbox and wait for callbacks on overridden methods
